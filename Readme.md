@@ -16,7 +16,7 @@ Toda essa comunicação acontece por meio de uma API Rest, utilizando também o 
 - Ticiana Linhares
 
 ## Modelagem do processo
-![Alt text](/Documentos/processobpm.png?raw=true "Title")
+![Alt text](C:/Users/Rebeca/Documents/processobpm.png?raw=true "Title")
 
 ## Benefícios da aplicação do Camunda:
  - Facilita o planejamento das funcionalidades do sistema;
