@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_122x787" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <bpmn:collaboration id="PocGov">
+    <bpmn:participant id="Participant_1755q19" name="MAPA DE NAVEGAÇÃO PARA O SISTEMA INTEGRADO DO CIDADÃO" processRef="Process_0qug5a4" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_0qug5a4" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1w2g61k">
+      <bpmn:lane id="Lane_0luioff" name="SERVIÇO EXTERNO">
+        <bpmn:flowNodeRef>EndEvent_0aat6ih</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_acess_api3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_acess_api4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_acess_api1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_saida_esp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_acess_api2</bpmn:flowNodeRef>
+        <bpmn:childLaneSet id="LaneSet_0rd8ljt" />
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1t1faie" name="CIDADÃO">
+        <bpmn:flowNodeRef>tk_inf_cadastro</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_inf_login</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0upp2oi</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_vis_homepage</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_cancel_sol</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0myy8oh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_vis_dados_sol1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0g80ehz</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_vis_dados_sol2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1kxxt7g</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_vis_serv_sol</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_preencher_info_sol</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_select_service</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_06xszve</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1845xs7" name="MICROSSERVIÇO DE USUÁRIO">
+        <bpmn:flowNodeRef>tk_login</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0bkxunt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1izsrvd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_cadastro</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1jh9n10" name="SISTEMA">
+        <bpmn:flowNodeRef>tk_busc_inf_user</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_busc_inf_service</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_env_inf_service</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_busc_inf_sol_us</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_sol_canc</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1ad9wfm</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>tk_busc_dados_sol</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:userTask id="tk_inf_cadastro" name="Preencher informações do cadastro">
+      <bpmn:incoming>SequenceFlow_15qkhtd</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0z4xcn5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="tk_inf_login" name="Preencher informações de login">
+      <bpmn:incoming>SequenceFlow_0aec9ow</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_06wmc27</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_15qkhtd" name="Não" sourceRef="ExclusiveGateway_06xszve" targetRef="tk_inf_cadastro">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{loggedIn}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0aec9ow" name="Sim" sourceRef="ExclusiveGateway_06xszve" targetRef="tk_inf_login">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not loggedIn}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0z4xcn5" sourceRef="tk_inf_cadastro" targetRef="tk_cadastro" />
+    <bpmn:sequenceFlow id="SequenceFlow_06wmc27" sourceRef="tk_inf_login" targetRef="tk_login" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ysl3b0" sourceRef="tk_acess_api2" targetRef="tk_vis_serv_sol" />
+    <bpmn:sequenceFlow id="SequenceFlow_0y21byv" sourceRef="tk_vis_dados_sol2" targetRef="EndEvent_1kxxt7g" />
+    <bpmn:sequenceFlow id="SequenceFlow_1vf6hpr" sourceRef="tk_acess_api4" targetRef="tk_vis_dados_sol2" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fzmyct" sourceRef="tk_busc_dados_sol" targetRef="tk_acess_api4" />
+    <bpmn:sequenceFlow id="SequenceFlow_1yeacnu" sourceRef="ExclusiveGateway_1ad9wfm" targetRef="tk_preencher_info_sol" />
+    <bpmn:sequenceFlow id="SequenceFlow_0yolcxe" sourceRef="tk_acess_api3" targetRef="EndEvent_0aat6ih" />
+    <bpmn:sequenceFlow id="SequenceFlow_1qosmij" sourceRef="tk_sol_canc" targetRef="tk_acess_api3" />
+    <bpmn:sequenceFlow id="SequenceFlow_0amrjxq" sourceRef="tk_vis_dados_sol1" targetRef="EndEvent_0g80ehz" />
+    <bpmn:sequenceFlow id="SequenceFlow_0oqm4q8" sourceRef="tk_select_service" targetRef="ExclusiveGateway_1izsrvd" />
+    <bpmn:sequenceFlow id="SequenceFlow_1qb7ydj" name="Visualização" sourceRef="ExclusiveGateway_0myy8oh" targetRef="tk_busc_dados_sol">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{actionType == 'visualizacao'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1qfv7lu" sourceRef="tk_vis_serv_sol" targetRef="ExclusiveGateway_0myy8oh" />
+    <bpmn:sequenceFlow id="SequenceFlow_0syfaof" sourceRef="tk_cancel_sol" targetRef="tk_sol_canc" />
+    <bpmn:sequenceFlow id="SequenceFlow_1vcv7gb" name="Cancelamento" sourceRef="ExclusiveGateway_0myy8oh" targetRef="tk_cancel_sol">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{actionType == 'cancelamento'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_14ztiuc" sourceRef="tk_cadastro" targetRef="ExclusiveGateway_0bkxunt" />
+    <bpmn:sequenceFlow id="SequenceFlow_0wbcm5u" sourceRef="tk_login" targetRef="ExclusiveGateway_0bkxunt" />
+    <bpmn:sequenceFlow id="SequenceFlow_1j13unw" sourceRef="tk_busc_inf_sol_us" targetRef="tk_acess_api2" />
+    <bpmn:sequenceFlow id="SequenceFlow_0sl2lnm" sourceRef="tk_preencher_info_sol" targetRef="tk_env_inf_service" />
+    <bpmn:sequenceFlow id="SequenceFlow_1tqw05o" sourceRef="ExclusiveGateway_1izsrvd" targetRef="tk_busc_inf_service" />
+    <bpmn:sequenceFlow id="SequenceFlow_0mni3j4" sourceRef="tk_busc_inf_user" targetRef="ExclusiveGateway_1ad9wfm" />
+    <bpmn:sequenceFlow id="SequenceFlow_0lfiy6g" sourceRef="ExclusiveGateway_1izsrvd" targetRef="tk_busc_inf_user" />
+    <bpmn:sequenceFlow id="SequenceFlow_04qru6q" sourceRef="tk_saida_esp" targetRef="tk_vis_dados_sol1" />
+    <bpmn:sequenceFlow id="SequenceFlow_0bgep4s" sourceRef="tk_env_inf_service" targetRef="tk_saida_esp" />
+    <bpmn:sequenceFlow id="SequenceFlow_12nepr4" sourceRef="tk_acess_api1" targetRef="ExclusiveGateway_1ad9wfm" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fdzcrm" sourceRef="tk_busc_inf_service" targetRef="tk_acess_api1" />
+    <bpmn:sequenceFlow id="SequenceFlow_049fssy" sourceRef="ExclusiveGateway_0bkxunt" targetRef="tk_vis_homepage" />
+    <bpmn:sequenceFlow id="SequenceFlow_1t6mrjr" name="Acompanhamento" sourceRef="ExclusiveGateway_0upp2oi" targetRef="tk_busc_inf_sol_us">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{requestType == 'acompanhamento'}}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1wxh4cu" name="Solicitação" sourceRef="ExclusiveGateway_0upp2oi" targetRef="tk_select_service">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{requestType == 'solicitacao'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0pva2ia" sourceRef="tk_vis_homepage" targetRef="ExclusiveGateway_0upp2oi" />
+    <bpmn:userTask id="tk_vis_serv_sol" name="Visualizar  serviço(s) solicitado(s)">
+      <bpmn:incoming>SequenceFlow_0ysl3b0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qfv7lu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1b8lgyj" name="Base de Login Único" />
+    <bpmn:endEvent id="EndEvent_1kxxt7g">
+      <bpmn:incoming>SequenceFlow_0y21byv</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="tk_vis_dados_sol2" name="Visualizar dados da solicitação">
+      <bpmn:incoming>SequenceFlow_1vf6hpr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0y21byv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1gi52ft" name="BD externo do Serviço" />
+    <bpmn:serviceTask id="tk_busc_dados_sol" name="Buscar dados da solicitação" camunda:type="external" camunda:topic="SearchUserRequestData">
+      <bpmn:incoming>SequenceFlow_1qb7ydj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1fzmyct</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="ExclusiveGateway_1ad9wfm">
+      <bpmn:incoming>SequenceFlow_0mni3j4</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_12nepr4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1yeacnu</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:dataStoreReference id="DataStoreReference_1otwk5h" name="BD externo do Serviço" />
+    <bpmn:serviceTask id="tk_sol_canc" name="Solicitar cancelamento" camunda:type="external" camunda:topic="CancelService">
+      <bpmn:incoming>SequenceFlow_0syfaof</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qosmij</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0g80ehz">
+      <bpmn:incoming>SequenceFlow_0amrjxq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="tk_vis_dados_sol1" name="Visualizar dados da solicitação">
+      <bpmn:incoming>SequenceFlow_04qru6q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0amrjxq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0myy8oh" name="Cancelamento ou visualização?">
+      <bpmn:incoming>SequenceFlow_1qfv7lu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vcv7gb</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1qb7ydj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="tk_cancel_sol" name="Cancelar solicitação">
+      <bpmn:incoming>SequenceFlow_1vcv7gb</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0syfaof</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0bkxunt">
+      <bpmn:incoming>SequenceFlow_14ztiuc</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0wbcm5u</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_049fssy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="tk_login" name="Realizar login" camunda:type="external" camunda:topic="SignIn">
+      <bpmn:incoming>SequenceFlow_06wmc27</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0wbcm5u</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0al0bim">
+        <bpmn:targetRef>DataStoreReference_1b8lgyj</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_busc_inf_sol_us" name="Buscar informação(ões) da(s) solicitação(ões) do usuário" camunda:type="external" camunda:topic="SearchUserRequest">
+      <bpmn:incoming>SequenceFlow_1t6mrjr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1j13unw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_env_inf_service" name="Enviar informações ao serviço" camunda:type="external" camunda:topic="SendInfoToService">
+      <bpmn:incoming>SequenceFlow_0sl2lnm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0bgep4s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_busc_inf_service" name="Buscar informações do serviço" camunda:type="external" camunda:topic="SearchServiceInfo">
+      <bpmn:incoming>SequenceFlow_1tqw05o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1fdzcrm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_busc_inf_user" name="Buscar informações do usuário" camunda:type="external" camunda:topic="SearchUserInfo">
+      <bpmn:incoming>SequenceFlow_0lfiy6g</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0mni3j4</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1vxqbfi">
+        <bpmn:targetRef>DataStoreReference_1b8lgyj</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="tk_vis_homepage" name="Visualizar página inicial">
+      <bpmn:incoming>SequenceFlow_049fssy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pva2ia</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0upp2oi" name="Acompanhamento ou Solicitação?">
+      <bpmn:incoming>SequenceFlow_0pva2ia</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1wxh4cu</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1t6mrjr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0aat6ih">
+      <bpmn:incoming>SequenceFlow_0yolcxe</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="tk_acess_api3" name="Acessar API (executar cancelamento)" camunda:type="external" camunda:topic="ScheduleCancel">
+      <bpmn:incoming>SequenceFlow_1qosmij</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0yolcxe</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0p89q5u">
+        <bpmn:targetRef>DataStoreReference_1otwk5h</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_acess_api4" name="Acessar API (consultar detalhes do agendamento)" camunda:type="external" camunda:topic="ScheduleDetailsRequest">
+      <bpmn:incoming>SequenceFlow_1fzmyct</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vf6hpr</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0jtc62a">
+        <bpmn:targetRef>DataStoreReference_1gi52ft</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_acess_api1" name="Acessar API (detalhes do serviço)" camunda:type="external" camunda:topic="ServiceDetailsRequest">
+      <bpmn:incoming>SequenceFlow_1fdzcrm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12nepr4</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1yh98hf">
+        <bpmn:targetRef>DataStoreReference_05pk6kd</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="tk_saida_esp" name="Gerar saída esperada" camunda:type="external" camunda:topic="OutputServiceCall">
+      <bpmn:incoming>SequenceFlow_0bgep4s</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_04qru6q</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0n4sqe2">
+        <bpmn:targetRef>DataStoreReference_05pk6kd</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="ExclusiveGateway_1izsrvd">
+      <bpmn:incoming>SequenceFlow_0oqm4q8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tqw05o</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0lfiy6g</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="tk_preencher_info_sol" name="Preencher informações da solicitação">
+      <bpmn:incoming>SequenceFlow_1yeacnu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0sl2lnm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="tk_select_service" name="Selecionar serviço">
+      <bpmn:incoming>SequenceFlow_1wxh4cu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0oqm4q8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_05pk6kd" name="BD externo do Serviço" />
+    <bpmn:serviceTask id="tk_acess_api2" name="Acessar API(s) (consultar agendamentos)" camunda:type="external" camunda:topic="SchedulesDetailsRequest">
+      <bpmn:incoming>SequenceFlow_1j13unw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ysl3b0</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1e5zji1">
+        <bpmn:targetRef>DataStoreReference_05pk6kd</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1" name="Acessar o sistema">
+      <bpmn:outgoing>SequenceFlow_1rtrl6m</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_06xszve" name="Está cadastrado?">
+      <bpmn:incoming>SequenceFlow_1rtrl6m</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_15qkhtd</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0aec9ow</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1rtrl6m" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_06xszve" />
+    <bpmn:serviceTask id="tk_cadastro" name="Realizar cadastro" camunda:type="external" camunda:topic="SignUp">
+      <bpmn:incoming>SequenceFlow_0z4xcn5</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14ztiuc</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0qou160">
+        <bpmn:targetRef>DataStoreReference_1b8lgyj</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="PocGov">
+      <bpmndi:BPMNShape id="Participant_1755q19_di" bpmnElement="Participant_1755q19" isHorizontal="true">
+        <dc:Bounds x="152" y="80" width="3666" height="1200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="245" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="218" y="178" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rtrl6m_di" bpmnElement="SequenceFlow_1rtrl6m">
+        <di:waypoint x="281" y="220" />
+        <di:waypoint x="568" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1t1faie_di" bpmnElement="Lane_1t1faie" isHorizontal="true">
+        <dc:Bounds x="182" y="80" width="3636" height="330" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0luioff_di" bpmnElement="Lane_0luioff" isHorizontal="true">
+        <dc:Bounds x="182" y="970" width="3636" height="310" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1jh9n10_di" bpmnElement="Lane_1jh9n10" isHorizontal="true">
+        <dc:Bounds x="182" y="690" width="3636" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_06xszve_di" bpmnElement="ExclusiveGateway_06xszve" isMarkerVisible="true">
+        <dc:Bounds x="568" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="487" y="193" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_05pk6kd_di" bpmnElement="DataStoreReference_05pk6kd">
+        <dc:Bounds x="1768" y="1135" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1758" y="1192" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1yh98hf_di" bpmnElement="DataOutputAssociation_1yh98hf">
+        <di:waypoint x="1623" y="1160" />
+        <di:waypoint x="1768" y="1159" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0bkxunt_di" bpmnElement="ExclusiveGateway_0bkxunt" isMarkerVisible="true">
+        <dc:Bounds x="878" y="525" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="878" y="450" width="83" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14ztiuc_di" bpmnElement="SequenceFlow_14ztiuc">
+        <di:waypoint x="903" y="500" />
+        <di:waypoint x="903" y="525" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0wbcm5u_di" bpmnElement="SequenceFlow_0wbcm5u">
+        <di:waypoint x="903" y="600" />
+        <di:waypoint x="903" y="575" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_049fssy_di" bpmnElement="SequenceFlow_049fssy">
+        <di:waypoint x="928" y="550" />
+        <di:waypoint x="1073" y="550" />
+        <di:waypoint x="1073" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0upp2oi_di" bpmnElement="ExclusiveGateway_0upp2oi" isMarkerVisible="true">
+        <dc:Bounds x="1168" y="142" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1149" y="105" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pva2ia_di" bpmnElement="SequenceFlow_0pva2ia">
+        <di:waypoint x="1123" y="167" />
+        <di:waypoint x="1168" y="167" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1wxh4cu_di" bpmnElement="SequenceFlow_1wxh4cu">
+        <di:waypoint x="1193" y="192" />
+        <di:waypoint x="1193" y="270" />
+        <di:waypoint x="1293" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1203" y="283" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1b8lgyj_di" bpmnElement="DataStoreReference_1b8lgyj">
+        <dc:Bounds x="1093" y="565" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1083" y="622" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0qou160_di" bpmnElement="DataOutputAssociation_0qou160">
+        <di:waypoint x="903" y="500" />
+        <di:waypoint x="1093" y="579" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0al0bim_di" bpmnElement="DataOutputAssociation_0al0bim">
+        <di:waypoint x="953" y="652" />
+        <di:waypoint x="1093" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1vxqbfi_di" bpmnElement="DataOutputAssociation_1vxqbfi">
+        <di:waypoint x="1202" y="750" />
+        <di:waypoint x="1133" y="615" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0oqm4q8_di" bpmnElement="SequenceFlow_0oqm4q8">
+        <di:waypoint x="1343" y="300" />
+        <di:waypoint x="1343" y="525" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lfiy6g_di" bpmnElement="SequenceFlow_0lfiy6g">
+        <di:waypoint x="1318" y="550" />
+        <di:waypoint x="1223" y="550" />
+        <di:waypoint x="1223" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_0thhk7i_di" bpmnElement="ExclusiveGateway_1ad9wfm">
+        <dc:Bounds x="1318" y="855" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0mni3j4_di" bpmnElement="SequenceFlow_0mni3j4">
+        <di:waypoint x="1223" y="830" />
+        <di:waypoint x="1223" y="880" />
+        <di:waypoint x="1318" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fdzcrm_di" bpmnElement="SequenceFlow_1fdzcrm">
+        <di:waypoint x="1463" y="830" />
+        <di:waypoint x="1463" y="935" />
+        <di:waypoint x="1573" y="935" />
+        <di:waypoint x="1573" y="1120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tqw05o_di" bpmnElement="SequenceFlow_1tqw05o">
+        <di:waypoint x="1368" y="550" />
+        <di:waypoint x="1463" y="550" />
+        <di:waypoint x="1463" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12nepr4_di" bpmnElement="SequenceFlow_12nepr4">
+        <di:waypoint x="1523" y="1160" />
+        <di:waypoint x="1343" y="1160" />
+        <di:waypoint x="1343" y="905" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1yeacnu_di" bpmnElement="SequenceFlow_1yeacnu">
+        <di:waypoint x="1368" y="880" />
+        <di:waypoint x="1548" y="880" />
+        <di:waypoint x="1548" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0sl2lnm_di" bpmnElement="SequenceFlow_0sl2lnm">
+        <di:waypoint x="1598" y="260" />
+        <di:waypoint x="1783" y="260" />
+        <di:waypoint x="1783" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0n4sqe2_di" bpmnElement="DataOutputAssociation_0n4sqe2">
+        <di:waypoint x="1793" y="1090" />
+        <di:waypoint x="1793" y="1130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bgep4s_di" bpmnElement="SequenceFlow_0bgep4s">
+        <di:waypoint x="1793" y="830" />
+        <di:waypoint x="1793" y="1010" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_044456p_di" bpmnElement="tk_cadastro">
+        <dc:Bounds x="853" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_09otnne_di" bpmnElement="tk_login">
+        <dc:Bounds x="853" y="600" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_15qkhtd_di" bpmnElement="SequenceFlow_15qkhtd">
+        <di:waypoint x="593" y="195" />
+        <di:waypoint x="593" y="140" />
+        <di:waypoint x="693" y="140" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="598" y="168" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0aec9ow_di" bpmnElement="SequenceFlow_0aec9ow">
+        <di:waypoint x="593" y="245" />
+        <di:waypoint x="593" y="300" />
+        <di:waypoint x="693" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="599" y="269" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0z4xcn5_di" bpmnElement="SequenceFlow_0z4xcn5">
+        <di:waypoint x="793" y="140" />
+        <di:waypoint x="903" y="140" />
+        <di:waypoint x="903" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_06wmc27_di" bpmnElement="SequenceFlow_06wmc27">
+        <di:waypoint x="743" y="340" />
+        <di:waypoint x="743" y="660" />
+        <di:waypoint x="853" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0jljpy8_di" bpmnElement="tk_inf_cadastro">
+        <dc:Bounds x="693" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0l5mddz_di" bpmnElement="tk_inf_login">
+        <dc:Bounds x="693" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0o4a8mm_di" bpmnElement="tk_vis_homepage">
+        <dc:Bounds x="1023" y="127" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1bd3xdg_di" bpmnElement="tk_select_service">
+        <dc:Bounds x="1293" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0knsipf_di" bpmnElement="tk_busc_inf_user">
+        <dc:Bounds x="1173" y="750" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1i5r3b2_di" bpmnElement="tk_busc_inf_service">
+        <dc:Bounds x="1413" y="750" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0cr0t4i_di" bpmnElement="tk_env_inf_service">
+        <dc:Bounds x="1733" y="750" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1173obx_di" bpmnElement="tk_vis_dados_sol2">
+        <dc:Bounds x="3568" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1ote0o4_di" bpmnElement="tk_preencher_info_sol">
+        <dc:Bounds x="1498" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1yisztb_di" bpmnElement="tk_vis_serv_sol">
+        <dc:Bounds x="2448" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1j13unw_di" bpmnElement="SequenceFlow_1j13unw">
+        <di:waypoint x="2213" y="790" />
+        <di:waypoint x="2050" y="790" />
+        <di:waypoint x="2050" y="1120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1e5zji1_di" bpmnElement="DataOutputAssociation_1e5zji1">
+        <di:waypoint x="2000" y="1160" />
+        <di:waypoint x="1818" y="1162" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1t6mrjr_di" bpmnElement="SequenceFlow_1t6mrjr">
+        <di:waypoint x="1218" y="167" />
+        <di:waypoint x="2263" y="167" />
+        <di:waypoint x="2263" y="750" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1696" y="149" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ysl3b0_di" bpmnElement="SequenceFlow_0ysl3b0">
+        <di:waypoint x="2100" y="1160" />
+        <di:waypoint x="2498" y="1160" />
+        <di:waypoint x="2498" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0myy8oh_di" bpmnElement="ExclusiveGateway_0myy8oh" isMarkerVisible="true">
+        <dc:Bounds x="2658" y="235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2639" y="198" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qfv7lu_di" bpmnElement="SequenceFlow_1qfv7lu">
+        <di:waypoint x="2548" y="260" />
+        <di:waypoint x="2658" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vcv7gb_di" bpmnElement="SequenceFlow_1vcv7gb">
+        <di:waypoint x="2683" y="285" />
+        <di:waypoint x="2683" y="360" />
+        <di:waypoint x="2793" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2663" y="320" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_13yko3n_di" bpmnElement="tk_cancel_sol">
+        <dc:Bounds x="2793" y="320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0syfaof_di" bpmnElement="SequenceFlow_0syfaof">
+        <di:waypoint x="2843" y="400" />
+        <di:waypoint x="2843" y="770" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_12pls37_di" bpmnElement="tk_busc_inf_sol_us">
+        <dc:Bounds x="2213" y="750" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qb7ydj_di" bpmnElement="SequenceFlow_1qb7ydj">
+        <di:waypoint x="2708" y="260" />
+        <di:waypoint x="3168" y="260" />
+        <di:waypoint x="3168" y="780" />
+        <di:waypoint x="3268" y="780" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3123" y="470" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_18jdra4_di" bpmnElement="tk_vis_dados_sol1">
+        <dc:Bounds x="1953" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_04qru6q_di" bpmnElement="SequenceFlow_04qru6q">
+        <di:waypoint x="1843" y="1050" />
+        <di:waypoint x="1890" y="1050" />
+        <di:waypoint x="1890" y="260" />
+        <di:waypoint x="1953" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0g80ehz_di" bpmnElement="EndEvent_0g80ehz">
+        <dc:Bounds x="2145" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0amrjxq_di" bpmnElement="SequenceFlow_0amrjxq">
+        <di:waypoint x="2053" y="260" />
+        <di:waypoint x="2145" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_16dcf35_di" bpmnElement="tk_sol_canc">
+        <dc:Bounds x="2793" y="770" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qosmij_di" bpmnElement="SequenceFlow_1qosmij">
+        <di:waypoint x="2843" y="850" />
+        <di:waypoint x="2843" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1otwk5h_di" bpmnElement="DataStoreReference_1otwk5h">
+        <dc:Bounds x="2658" y="1165" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2648" y="1222" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0p89q5u_di" bpmnElement="DataOutputAssociation_0p89q5u">
+        <di:waypoint x="2793" y="1136" />
+        <di:waypoint x="2708" y="1180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1845xs7_di" bpmnElement="Lane_1845xs7" isHorizontal="true">
+        <dc:Bounds x="182" y="410" width="3636" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0aat6ih_di" bpmnElement="EndEvent_0aat6ih">
+        <dc:Bounds x="3052" y="1092" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yolcxe_di" bpmnElement="SequenceFlow_0yolcxe">
+        <di:waypoint x="2893" y="1110" />
+        <di:waypoint x="3052" y="1110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1yryzw7_di" bpmnElement="tk_busc_dados_sol">
+        <dc:Bounds x="3268" y="770" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fzmyct_di" bpmnElement="SequenceFlow_1fzmyct">
+        <di:waypoint x="3318" y="850" />
+        <di:waypoint x="3318" y="1030" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1gi52ft_di" bpmnElement="DataStoreReference_1gi52ft">
+        <dc:Bounds x="3183" y="1155" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3173" y="1212" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0jtc62a_di" bpmnElement="DataOutputAssociation_0jtc62a">
+        <di:waypoint x="3278" y="1110" />
+        <di:waypoint x="3233" y="1155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vf6hpr_di" bpmnElement="SequenceFlow_1vf6hpr">
+        <di:waypoint x="3368" y="1070" />
+        <di:waypoint x="3488" y="1070" />
+        <di:waypoint x="3488" y="200" />
+        <di:waypoint x="3568" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1kxxt7g_di" bpmnElement="EndEvent_1kxxt7g">
+        <dc:Bounds x="3740" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0y21byv_di" bpmnElement="SequenceFlow_0y21byv">
+        <di:waypoint x="3668" y="200" />
+        <di:waypoint x="3740" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_1ylz41j_di" bpmnElement="ExclusiveGateway_1izsrvd">
+        <dc:Bounds x="1318" y="525" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1sgwn81_di" bpmnElement="tk_acess_api3">
+        <dc:Bounds x="2793" y="1070" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1lmq00h_di" bpmnElement="tk_acess_api4">
+        <dc:Bounds x="3268" y="1030" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1cu71b8_di" bpmnElement="tk_acess_api1">
+        <dc:Bounds x="1523" y="1120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_04b1h3d_di" bpmnElement="tk_saida_esp">
+        <dc:Bounds x="1743" y="1010" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1asx02u_di" bpmnElement="tk_acess_api2">
+        <dc:Bounds x="2000" y="1120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

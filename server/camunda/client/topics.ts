@@ -1,0 +1,13 @@
+export const SearchUserRequestData = "SearchUserRequestData";
+export const CancelService = "CancelService";
+export const SignUp = "SignUp";
+export const SignIn = "SignIn";
+export const SearchUserRequest = "SearchUserRequest";
+export const SendInfoToService = "SendInfoToService";
+export const SearchServiceInfo = "SearchServiceInfo";
+export const SearchUserInfo = "SearchUserInfo";
+export const ScheduleCancel = "ScheduleCancel";
+export const ScheduleDetailsRequest = "ScheduleDetailsRequest";
+export const ServiceDetailsRequest = "ServiceDetailsRequest";
+export const OutputServiceCall = "OutputServiceCall";
+export const SchedulesDetailsRequest = "SchedulesDetailsRequest";

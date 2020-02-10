@@ -1,0 +1,17 @@
+[{
+    "firstname": "Samir",
+    "lastname": "Braga Chaves",
+    "birthDate": "27/09/1999",
+    "email": "samir@email.com",
+    "password": "123456",
+    "username": "samirchaves",
+    "CPF": "000.000.000-00"
+}, {
+    "firstname": "Nicksson",
+    "lastname": "Arrais de Freitas",
+    "email": "nicksson@email.com",
+    "birthDate": "08/02/1994",
+    "password": "123456",
+    "username": "nicksson",
+    "CPF": "000.000.000-00"
+}]
