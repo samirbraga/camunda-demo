@@ -24,6 +24,8 @@ Toda essa comunicação acontece por meio de uma API Rest, utilizando também o 
 ## Solução
 Nossa solução é baseada em a partir de um login único, o usuário ter acesso a uma suite de serviços disponibilizados pelas secretarias do Estado. Assumimos cada secretaria se responsabilizará por disponibilizar seu serviço de agendamento no nosso sistema.
 
+![alt text](photo5051260464041929026.jpg)
+
 ## Benefícios da aplicação do Camunda
  - Facilita o planejamento das funcionalidades do sistema;
  - Demonstra como o usuário irá interagir com o sistema;
