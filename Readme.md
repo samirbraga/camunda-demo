@@ -26,6 +26,12 @@ Nossa solução é baseada em a partir de um login único, o usuário ter acesso
 
 ![alt text](photo5051260464041929026.jpg)
 
+O fluxo de atividades do usuário consiste basicamente em:
+1. Cadastro no sistema.
+2. Seleção do serviço desejado.
+3. Escolha da data e do local onde deseja ser atendido.
+4. Salvar documento gerado pelo agendamento (pode ser uma senha, uma declaração, um atestado, entre outros).
+
 ## Benefícios da aplicação do Camunda
  - Facilita o planejamento das funcionalidades do sistema;
  - Demonstra como o usuário irá interagir com o sistema;
