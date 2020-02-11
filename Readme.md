@@ -18,20 +18,26 @@ Toda essa comunicação acontece por meio de uma API Rest, utilizando também o 
 ## Modelagem do processo
 ![alt text](processobpm.png)
 
-## Benefícios da aplicação do Camunda:
+## Problemática
+<b> Como viabilizar ao cidadão um meio único de ele ou ela realizar agendamento em algum serviço disponibilizado pelo Estado? </b>
+
+## Solução
+Nossa solução é baseada em a partir de um login único, o usuário ter acesso a uma suite de serviços disponibilizados pelas secretarias do Estado. Assumimos cada secretaria se responsabilizará por disponibilizar seu serviço de agendamento no nosso sistema.
+
+## Benefícios da aplicação do Camunda
  - Facilita o planejamento das funcionalidades do sistema;
  - Demonstra como o usuário irá interagir com o sistema;
  - Dá suporte à geração de código-fonte do sistema a partir da modelagem feita através do BPMN;
- - Provê uma suit de ferramentas, como Cockpit e Tasklist para administração e monitoramento do fluxo de atividades do processo BPMN do sistema modelado no Camunda Modeler.
+ - Provê uma suit de ferramentas, como Cockpit e Tasklist para administração e monitoramento do fluxo de atividades do processo BPMN do sistema modelado no Camunda Modeler;
  - Possibilita integração com IDEs como Intellij Idea e Eclipse.
  
- ## Dificuldades:
+ ## Dificuldades
  - Uso das ferramentas é pouco intuitivo, principalmente na geração do deployment do processo;
  - Os erros são difíceis de identificar e corrigir;
  - A notação da modelagem BPMN aplicada na ferramenta é diferente da modelagem BPMN que é comumente usada.
  
- ## Melhorias:
+ ## Melhorias
  - Especializar-se na modelagem BPMN usada pelo Camunda;
- - Aprender as propriedades intrísecas do Camunda 
+ - Aprender as propriedades intrísecas do Camunda;
  - Decidir qual o melhor momento da fase do desenvolvimento do sistema para uso da ferramenta Camunda.
  
